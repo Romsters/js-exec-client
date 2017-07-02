@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Test page</h1>
+    <div>
+        <button id="load">get result</button>
+    </div>
+    <div>
+        <span id="result">result:<span>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript">
+        $('#load').bind('click', loadResults);
+        function loadResults(){
+          $('#result').text('result:');
+          $.ajax({
+            method: 'POST',
+            url: 'http://localhost:3000/script1.js/execute',
+            headers: {
+              'x-access-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAdGVzdC5jb20iLCJpYXQiOjE0OTkwNzc1MDQsImV4cCI6MTUwMTY2OTUwNH0.Dajnw2WPZrduLqwrTp9KcEx4ZA2tJ-pGoO-W32Mlhok'
+            },
+            cache: false
+          }).then(function(data){
+            $('#result').text(data.result);
+          }).fail(function(reason){
+            $('#result').text('result: error');
+          });
+        }
+    </script>
+</body>
+</html>
